@@ -4,7 +4,7 @@ import random
 words_variants = ['dog', 'pig', 'bird', 'spider']  # list of words in use
 
 # base data for bot
-my_token = '1867768916:AAEbplTkKzgNyoQfwiELWe4y8F1acMpijAU'
+my_token = '' # !!!! input token to start
 root_url = 'https://api.telegram.org/bot'
 bot_updates = '/getUpdates'
 send_message_endpoint = '/sendMessage'
