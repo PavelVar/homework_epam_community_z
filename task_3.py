@@ -61,17 +61,17 @@ def send_message(token, chat_id, message_text):
 
 # check the try
 def check():
-    if last_message_text == word_right or word_in_game == word_right:  # if the full word was wright
+    if last_message_text == word_wright or word_in_game == word_wright:  # if the full word was wright
         return 'Victory'
     elif len(last_message_text.split()) > 1 or len(last_message_text) > 1:  # if more than1 word or letter are typed
         return 'Error'
-    elif last_message_text in word_right:  # if the letter is ok
+    elif last_message_text in word_wright:  # if the letter is ok
         return "Ok"
 
 
 # action when win
 def victory():
-    send_message(my_token, chat_id, f"You win! Congratulations!\nOur word was '{word_right}'")
+    send_message(my_token, chat_id, f"You win! Congratulations!\nOur word was '{word_wright}'")
     send_message(my_token, chat_id, "Type 'start' if you want to play again")
     game_end()
 
@@ -83,7 +83,7 @@ def mistake(flag):
     message_1 = f"Check input, you wrote more than 1 word or more than 1 letter.\nLives count: {lives}"
     message_2 = f"Sorry, there is a false word or no this letter in our word. Try again..\nLives count: {lives}"
     if lives == 0:
-        send_message(my_token, chat_id, f"You loose( \nOur word was '{word_right}'")
+        send_message(my_token, chat_id, f"You loose( \nOur word was '{word_wright}'")
         send_message(my_token, chat_id, "Type 'start' if you want to play again")
         game_end()
     else:
@@ -95,11 +95,11 @@ def mistake(flag):
 
 # end game
 def game_end():
-    global word_right
-    word_right = ''
+    global word_wright
+    word_wright = ''
 
 
-lives, word_right, word_in_game = game_start()  # get started game
+lives, word_wright, word_in_game = game_start()  # get started game
 # reading user messages
 last_message_number = 0
 while True:
@@ -110,10 +110,10 @@ while True:
     last_message_text = last_message['message']['text'].lower()  # get message text
     if message_id > last_message_number:  # check if the message is new
         if last_message_text in ('/start', 'start'):  # check if it is a start of user work
-            lives, word_right, word_in_game = game_start()
-            first_message(lives, word_right, word_in_game)
+            lives, word_wright, word_in_game = game_start()
+            first_message(lives, word_wright, word_in_game)
         else:
-            if word_right == '':  # if the game was ended
+            if word_wright == '':  # if the game was ended
                 send_message(my_token, chat_id, 'If you want to continue, type start.')
             else:
                 if check() == 'Victory':  # if the full word is ok
@@ -123,8 +123,8 @@ while True:
                 elif check() == "Ok":  # if the letter is ok
                     index = -1
                     #  change the symbol by the right letter
-                    while word_in_game.count(last_message_text) != word_right.count(last_message_text):
-                        index = word_right.find(last_message_text, index + 1)
+                    while word_in_game.count(last_message_text) != word_wright.count(last_message_text):
+                        index = word_wright.find(last_message_text, index + 1)
                         word_in_game = word_in_game[:index] + last_message_text + word_in_game[index + 1:]
                     if check() == 'Victory':  # if the word is ok in result
                         victory()
@@ -134,4 +134,4 @@ while True:
                 else:
                     mistake('else')  # if the letter is wrong
 
-        last_message_number = message_id  # update message_id
+        last_message_number = message_id  # update1 message_id
